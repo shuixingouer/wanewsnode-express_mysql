@@ -49,38 +49,39 @@
         </div>
       </div>
       <div class="weui-btn-area">
-        <a href="javascript:;" class="weui-btn weui-btn_primary">注册</a>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="register0">注册</a>
       </div>
       <div class="weui-cells__tips">已经注册？<a href="/login">点击登录</a></div>
     </div>
     <script src="/javascripts/zepto.min.js"></script>
     <script>
-			$("#username").blur(function(){
-                var username=$("#username").val();
-                var telnum=$("#telnum").val();
-                var password=$("#password").val();
-                var password=$("#password1").val();
-                var data={"uname":username};
-                if(username.length!=0){
-                    $.ajax({
-                        url:'/register',
-                        type:'post',
-                        data:data,
-                        success:function(data,status){
-                            if(status == 'success'){
-                                var obj = JSON.parse(data);
-                                alert(obj.type);
-                            }
-                        },
-                        error:function(data,status){
-                            if(status == 'error'){
-                                var obj = JSON.parse(data);
-                                alert(obj.type);
-                            }
-                        }
-                    })
+        $("#register0").click(function(){
+            var username=$("#username").val();
+            var telnum=$("#telnum").val();
+            var password=$("#password").val();
+            //alert(password);
+            var password1=$("#password1").val();
+            var data={"uname":username,"upwd":password};
+            $.ajax({
+                url:'/register',
+                type:'post',
+                data:data,
+                success:function(data,status){
+//                    alert("成功");
+                    var obj = data;
+                    //alert(1);
+                    if(obj.type=="1"){
+                        //alert(1);
+                        location.href = '/login';
+                    }else{
+                        alert('密码或账号有问题！');
+                    }
+                },
+                error:function(data,status){
+
                 }
             })
+        })
     </script>
   </body>
 </html>

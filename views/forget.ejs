@@ -13,7 +13,7 @@
         <h1 class="page__title">欢迎来到Wanews</h1>
         <p class="page__desc">祝你玩得开心</p>
     </div>
-    <div class="weui-cells__title">登录</div>
+    <div class="weui-cells__title">找回密码</div>
     <div class="weui-cells weui-cells_form">
         <div class="weui-cell">
             <div class="weui-cell__hd">
@@ -25,27 +25,26 @@
         </div>
         <div class="weui-cell">
             <div class="weui-cell__hd">
-                <label class="weui-label">密码</label>
+                <label class="weui-label">请输入新密码</label>
             </div>
             <div class="weui-cell__bd">
-                <input class="weui-input" id="password" type="" pattern="[0-9]*" placeholder="请输入密码">
+                <input class="weui-input" id="password" type="" pattern="[0-9]*" placeholder="请输入新密码">
             </div>
         </div>
     </div>
     <div class="weui-btn-area">
-        <a href="javascript:;" class="weui-btn weui-btn_primary" id="login0">登录</a>
+        <a href="javascript:;" class="weui-btn weui-btn_primary" id="sure0">确定</a>
     </div>
     <div class="weui-cells__tips">还没注册？<a href="/register">点击注册</a></div>
-    <div class="weui-cells__tips"><a href="/forget">忘记密码</a></div>
 </div>
 <script src="/javascripts/zepto.min.js"></script>
 <script>
-    $("#login0").click(function(){
+    $("#sure0").click(function(){
         var username=$("#username").val();
         var password=$("#password").val();
         var data={"uname":username,"upwd":password};
         $.ajax({
-            url:'/login',
+            url:'/forget',
             type:'post',
             data:data,
             success:function(data,status){
@@ -54,9 +53,9 @@
                 //alert(1);
                 if(obj.type=="1"){
                     //alert(1);
-                    location.href = '/';
+                    location.href = '/login';
                 }else{
-                    alert('密码或账号有问题！');
+                    alert('账号有问题！');
                 }
             },
             error:function(data,status){

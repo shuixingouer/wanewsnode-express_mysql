@@ -15,7 +15,7 @@ var router = express.Router();
 //}
 /* GET login page. */
 router.route("/").get(function(req,res){// 到达此路径则渲染login文件，并传出title值供 login.html使用
-  res.render("login",{title:'User Login'});
+  res.render("forget",{title:'User forget'});
 }).post(function(req,res){// 从此路径检测到post方式则进行post数据的处理操作
   //这里的User就是从model中获取user对象，通过global.dbHandel全局方法（这个方法在app.js中已经实现)
   //var User = global.dbHandel.getModel('user');
@@ -34,17 +34,24 @@ router.route("/").get(function(req,res){// 到达此路径则渲染login文件�
 
   connection.connect();
 
-  var str = "select * from myclass WHERE name ='"+uname+"' and password='"+upwd+"';";
+  var str = "update myclass set password='"+upwd+"' where name='"+uname+"';";
+  console.log(str);
   //var str = "select * from myclass";
   connection.query(str, function(err, result) {
     if (err) throw err;
-    //console.log(str);
-    //console.log('The solution is: ', result[0].name);
-    if(result.length){
-      console.log("成功登陆");
+
+
+
+    //成功修改数据： affectedRows：1, changedRows:1
+    //要修改的数据与原数据相同： affectedRows：1, changedRows:0
+    //未找到需要修改的数据： affectedRows：0, changedRows:0
+    //console.log('The solution is: ', result.affectedRows);
+    if(result.affectedRows){
+      console.log("成功找回密码");
       res.send({type:1});
     }else{
       res.send({type:0});
+      console.log("未找到对应的昵称");
     }
   });
 
