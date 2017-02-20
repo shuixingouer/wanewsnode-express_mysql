@@ -21,7 +21,7 @@ router.route("/").get(function(req,res){
     if (err) throw err;
     //console.log(str);
     //console.log('The solution is: ', result[0].name);
-    if(result){
+    if(result.affectedRows){
       res.send({type:1});
       console.log("成功删除数据");
     }else{
